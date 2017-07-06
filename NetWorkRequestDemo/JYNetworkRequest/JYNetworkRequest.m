@@ -44,6 +44,19 @@ static JYNetworkRequest *request;
         [_manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//        policy.validatesDomainName = NO;
+//        _manager.securityPolicy = policy;
+        
+        NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"bilibili" ofType:@"cer"];
+        NSData * certData =[NSData dataWithContentsOfFile:cerPath];
+        NSSet * certSet = [[NSSet alloc] initWithObjects:certData, nil];
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certSet];
+        securityPolicy.validatesDomainName = NO;
+        securityPolicy.allowInvalidCertificates = YES;
+        
+        _manager.securityPolicy = securityPolicy;
     }
     
     return self;

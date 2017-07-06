@@ -15,6 +15,7 @@
 		09FBCCD61F0CD2DE004AC35D /* NetWorkRequestDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCD51F0CD2DE004AC35D /* NetWorkRequestDemoUITests.m */; };
 		09FBCCE61F0CD715004AC35D /* JYNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCE51F0CD715004AC35D /* JYNetworkRequest.m */; };
 		09FBCCE91F0D0124004AC35D /* JYRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCE81F0D0124004AC35D /* JYRequestCache.m */; };
+		09FBCCEB1F0E6FE0004AC35D /* bilibili.cer in Resources */ = {isa = PBXBuildFile; fileRef = 09FBCCEA1F0E6C25004AC35D /* bilibili.cer */; };
 		D4B1F7DFA49B6F05685101A7 /* libPods-NetWorkRequestDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD6402F053B3793E4A5AD5 /* libPods-NetWorkRequestDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		09FBCCE51F0CD715004AC35D /* JYNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYNetworkRequest.m; path = JYNetworkRequest/JYNetworkRequest.m; sourceTree = "<group>"; };
 		09FBCCE71F0D0124004AC35D /* JYRequestCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYRequestCache.h; path = JYNetworkRequest/JYRequestCache.h; sourceTree = "<group>"; };
 		09FBCCE81F0D0124004AC35D /* JYRequestCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYRequestCache.m; path = JYNetworkRequest/JYRequestCache.m; sourceTree = "<group>"; };
+		09FBCCEA1F0E6C25004AC35D /* bilibili.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = bilibili.cer; sourceTree = "<group>"; };
 		9FCC511E06EAFB726D1E8ECD /* Pods-NetWorkRequestDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkRequestDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkRequestDemo/Pods-NetWorkRequestDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B8040657E4CA8DD11C067496 /* Pods-NetWorkRequestDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkRequestDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkRequestDemo/Pods-NetWorkRequestDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C4BD6402F053B3793E4A5AD5 /* libPods-NetWorkRequestDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NetWorkRequestDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				09FBCCB71F0CD2DE004AC35D /* ViewController.m */,
 				09FBCCBC1F0CD2DE004AC35D /* Assets.xcassets */,
 				09FBCCC11F0CD2DE004AC35D /* Info.plist */,
+				09FBCCEA1F0E6C25004AC35D /* bilibili.cer */,
 				09FBCCB01F0CD2DE004AC35D /* Supporting Files */,
 			);
 			path = NetWorkRequestDemo;
@@ -288,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09FBCCEB1F0E6FE0004AC35D /* bilibili.cer in Resources */,
 				09FBCCBD1F0CD2DE004AC35D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

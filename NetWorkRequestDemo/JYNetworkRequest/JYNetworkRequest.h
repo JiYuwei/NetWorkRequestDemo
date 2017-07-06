@@ -21,14 +21,28 @@ typedef void(^requestFailureBlock) (NSError *error,BOOL needCache,NSDictionary *
 
 @interface JYNetworkRequest : NSObject
 
+
++(void)retrieveJsonUseGETfromURL:(NSString *)url
+                         success:(requestSuccessBlock)success
+                         failure:(requestFailureBlock)failure;
+
++(void)retrieveJsonUsePOSTfromURL:(NSString *)url
+                       parameters:(NSDictionary *)parameters
+                          success:(requestSuccessBlock)success
+                          failure:(requestFailureBlock)failure;
+
+
+
 +(void)retrieveJsonWithPrepare:(prepareBlock)prepare
                         finish:(finishBlock)finish
                      needCache:(BOOL)needCache
                    requestType:(HTTPRequestType)type
                        fromURL:(NSString *)url
-                     parmeters:(NSDictionary *)parmeters
+                     parameters:(NSDictionary *)parameters
                        success:(requestSuccessBlock)success
                        failure:(requestFailureBlock)failure;
+
++(void)cancelAllRequest;
 
 @end
 

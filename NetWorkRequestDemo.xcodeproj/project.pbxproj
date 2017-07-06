@@ -14,6 +14,7 @@
 		09FBCCCB1F0CD2DE004AC35D /* NetWorkRequestDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCCA1F0CD2DE004AC35D /* NetWorkRequestDemoTests.m */; };
 		09FBCCD61F0CD2DE004AC35D /* NetWorkRequestDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCD51F0CD2DE004AC35D /* NetWorkRequestDemoUITests.m */; };
 		09FBCCE61F0CD715004AC35D /* JYNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCE51F0CD715004AC35D /* JYNetworkRequest.m */; };
+		09FBCCE91F0D0124004AC35D /* JYRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCE81F0D0124004AC35D /* JYRequestCache.m */; };
 		D4B1F7DFA49B6F05685101A7 /* libPods-NetWorkRequestDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD6402F053B3793E4A5AD5 /* libPods-NetWorkRequestDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,8 @@
 		09FBCCD71F0CD2DE004AC35D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09FBCCE41F0CD715004AC35D /* JYNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYNetworkRequest.h; path = JYNetworkRequest/JYNetworkRequest.h; sourceTree = "<group>"; };
 		09FBCCE51F0CD715004AC35D /* JYNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYNetworkRequest.m; path = JYNetworkRequest/JYNetworkRequest.m; sourceTree = "<group>"; };
+		09FBCCE71F0D0124004AC35D /* JYRequestCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYRequestCache.h; path = JYNetworkRequest/JYRequestCache.h; sourceTree = "<group>"; };
+		09FBCCE81F0D0124004AC35D /* JYRequestCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYRequestCache.m; path = JYNetworkRequest/JYRequestCache.m; sourceTree = "<group>"; };
 		9FCC511E06EAFB726D1E8ECD /* Pods-NetWorkRequestDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkRequestDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkRequestDemo/Pods-NetWorkRequestDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B8040657E4CA8DD11C067496 /* Pods-NetWorkRequestDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkRequestDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkRequestDemo/Pods-NetWorkRequestDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C4BD6402F053B3793E4A5AD5 /* libPods-NetWorkRequestDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NetWorkRequestDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +151,8 @@
 		09FBCCE31F0CD6C8004AC35D /* JYNetworkRequest */ = {
 			isa = PBXGroup;
 			children = (
+				09FBCCE71F0D0124004AC35D /* JYRequestCache.h */,
+				09FBCCE81F0D0124004AC35D /* JYRequestCache.m */,
 				09FBCCE41F0CD715004AC35D /* JYNetworkRequest.h */,
 				09FBCCE51F0CD715004AC35D /* JYNetworkRequest.m */,
 			);
@@ -356,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09FBCCE91F0D0124004AC35D /* JYRequestCache.m in Sources */,
 				09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */,
 				09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */,
 				09FBCCB21F0CD2DE004AC35D /* main.m in Sources */,

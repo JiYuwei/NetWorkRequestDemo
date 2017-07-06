@@ -6,8 +6,9 @@
 //  Copyright © 2017年 jyw. All rights reserved.
 //
 
-#import "JYNetworkRequest.h"
 #import <AFNetworking/AFNetworking.h>
+#import "JYNetworkRequest.h"
+#import "JYRequestCache.h"
 
 static JYNetworkRequest *request;
 
@@ -50,15 +51,28 @@ static JYNetworkRequest *request;
 
 #pragma mark - Public
 
-+(void)retrieveJsonWithPrepare:(prepareBlock)prepare finish:(finishBlock)finish needCache:(BOOL)needCache requestType:(HTTPRequestType)type fromURL:(NSString *)url parmeters:(NSDictionary *)parmeters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
++(void)retrieveJsonUseGETfromURL:(NSString *)url success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
 {
-    return [[self sharedRequest] retrieveJsonWithPrepare:prepare finish:finish needCache:needCache requestType:type fromURL:url parmeters:parmeters success:success failure:failure];
+    return [self retrieveJsonWithPrepare:nil finish:nil needCache:NO requestType:HTTPRequestTypeGET fromURL:url parameters:[NSDictionary dictionary] success:success failure:failure];
 }
 
++(void)retrieveJsonUsePOSTfromURL:(NSString *)url parameters:(NSDictionary *)parameters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
+{
+    return [self retrieveJsonWithPrepare:nil finish:nil needCache:NO requestType:HTTPRequestTypePOST fromURL:url parameters:parameters success:success failure:failure];
+}
+
++(void)retrieveJsonWithPrepare:(prepareBlock)prepare finish:(finishBlock)finish needCache:(BOOL)needCache requestType:(HTTPRequestType)type fromURL:(NSString *)url parameters:(NSDictionary *)parameters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
+{
+    return [[self sharedRequest] retrieveJsonWithPrepare:prepare finish:finish needCache:needCache requestType:type fromURL:url parameters:parameters success:success failure:failure];
+}
+
++(void)cancelAllRequest{
+    return [[self sharedRequest] cancelAllRequest];
+}
 
 #pragma mark - Private
 
-- (void)retrieveJsonWithPrepare:(prepareBlock)prepare finish:(finishBlock)finish needCache:(BOOL)needCache requestType:(HTTPRequestType)type fromURL:(NSString *)url parmeters:(NSDictionary *)parmeters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
+- (void)retrieveJsonWithPrepare:(prepareBlock)prepare finish:(finishBlock)finish needCache:(BOOL)needCache requestType:(HTTPRequestType)type fromURL:(NSString *)url parameters:(NSDictionary *)parameters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
 {
     if (!url) {
         return;
@@ -67,45 +81,73 @@ static JYNetworkRequest *request;
         prepare();
     }
     
-//    if (needCache) {
-//        NSString *requestKey = [self generateRequestKey:url parameters:parmeters];
-//        
-//    }
-    
     switch (type) {
         case HTTPRequestTypeGET:
         {
-            [_manager GET:url parameters:parmeters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [_manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (finish) {
                     finish();
                 }
                 
+                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
+                if (json && needCache) {
+                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
+                    [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonData:responseObject];
+                }
                 
+                if (success) {
+                    success(json);
+                }
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if (finish) {
                     finish();
                 }
                 
+                NSDictionary *json = nil;
+                if (needCache) {
+                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
+                    json = [[JYRequestCache sharedRequestCache] getFromCache:requestKey];
+                }
                 
+                if (failure) {
+                    failure(error,needCache,json);
+                }
                 
             }];
         }
             break;
         case HTTPRequestTypePOST:
         {
-            [_manager POST:url parameters:parmeters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [_manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (finish) {
                     finish();
                 }
                 
+                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
+                if (json && needCache) {
+                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
+                    [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonData:responseObject];
+                }
+                
+                if (success) {
+                    success(json);
+                }
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if (finish) {
                     finish();
                 }
                 
+                NSDictionary *json = nil;
+                if (needCache) {
+                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
+                    json = [[JYRequestCache sharedRequestCache] getFromCache:requestKey];
+                }
                 
+                if (failure) {
+                    failure(error,needCache,json);
+                }
             }];
         }
             break;
@@ -115,8 +157,6 @@ static JYNetworkRequest *request;
     }
     
 }
-
-
 
 
 - (NSString *)generateRequestKey:(NSString *)requestUrl parameters:(NSDictionary *)parameters
@@ -136,6 +176,10 @@ static JYNetworkRequest *request;
     return [requestUrl md5];
 }
 
+-(void)cancelAllRequest
+{
+    [_manager.operationQueue cancelAllOperations];
+}
 
 @end
 

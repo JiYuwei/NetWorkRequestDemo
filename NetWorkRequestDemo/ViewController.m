@@ -6,6 +6,7 @@
 //  Copyright © 2017年 jyw. All rights reserved.
 //
 
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "ViewController.h"
 #import "JYNetworkRequest.h"
 #import "TableViewCell.h"
@@ -41,7 +42,14 @@
     NSString *url = @"https://app.bilibili.com/x/feed/index?access_key=f1f583b3c34d7eb53dfb2cd248c64ae6&actionKey=appkey&appkey=27eb53fc9058f8c3&build=5800&device=phone&idx=1494956798&mobi_app=iphone&network=wifi&open_event=&platform=ios&pull=1&sign=7280ea66a6494319d2f033b145dde8c3&style=2&ts=1499343223";
 
     [self createUI];
-    [self retrieveJsonUseGETWithURL:url];
+    
+    [self retrieveJsonUseGETWithURL:url prepare:^{
+        [SVProgressHUD showWithStatus:@"正在加载"];
+    } finsih:^{
+        if ([SVProgressHUD isVisible]) {
+            [SVProgressHUD dismiss];
+        }
+    }];
 }
 
 -(void)createUI

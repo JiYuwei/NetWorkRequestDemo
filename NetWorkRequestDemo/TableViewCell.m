@@ -36,8 +36,10 @@
         _dataArray = dataArray;
     }
     
-    [_imgViewA sd_setImageWithURL:[NSURL URLWithString:_dataArray[0].face] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        [self addFadeAnimationToLayer:_imgViewA.layer];
+    [_imgViewA sd_setImageWithURL:[NSURL URLWithString:_dataArray[0].face] placeholderImage:[UIImage imageNamed:@""] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (cacheType == SDImageCacheTypeNone) {
+            [self addFadeAnimationToLayer:_imgViewA.layer];
+        }
     }];
     _titleLabelA.text = _dataArray[0].title;
     _typeLabelA.text = _dataArray[0].tname;
@@ -48,8 +50,10 @@
     _typeLabelB.hidden = !doubleData;
     
     if (doubleData) {
-        [_imgViewB sd_setImageWithURL:[NSURL URLWithString:_dataArray[1].face] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            [self addFadeAnimationToLayer:_imgViewB.layer];
+        [_imgViewB sd_setImageWithURL:[NSURL URLWithString:_dataArray[1].face] placeholderImage:[UIImage imageNamed:@""] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (cacheType == SDImageCacheTypeNone) {
+                [self addFadeAnimationToLayer:_imgViewB.layer];
+            }
         }];
         _titleLabelB.text = _dataArray[1].title;
         _typeLabelB.text = _dataArray[1].tname;

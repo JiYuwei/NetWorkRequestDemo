@@ -7,6 +7,7 @@
 //
 
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <MJRefresh/MJRefresh.h>
 #import "ViewController.h"
 #import "JYNetworkRequest.h"
 #import "TableViewCell.h"
@@ -14,6 +15,8 @@
 
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define REQUEST_URL @"https://app.bilibili.com/x/feed/index?access_key=f1f583b3c34d7eb53dfb2cd248c64ae6&actionKey=appkey&appkey=27eb53fc9058f8c3&build=5800&device=phone&idx=1494956798&mobi_app=iphone&network=wifi&open_event=&platform=ios&pull=1&sign=7280ea66a6494319d2f033b145dde8c3&style=2&ts=1499343223"
 
 @interface ViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -39,11 +42,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"AFNetworkingTest";
     
-    NSString *url = @"https://app.bilibili.com/x/feed/index?access_key=f1f583b3c34d7eb53dfb2cd248c64ae6&actionKey=appkey&appkey=27eb53fc9058f8c3&build=5800&device=phone&idx=1494956798&mobi_app=iphone&network=wifi&open_event=&platform=ios&pull=1&sign=7280ea66a6494319d2f033b145dde8c3&style=2&ts=1499343223";
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
 
     [self createUI];
     
-    [self retrieveJsonUseGETWithURL:url prepare:^{
+    [self retrieveJsonUseGETWithURL:REQUEST_URL prepare:^{
         [SVProgressHUD showWithStatus:@"正在加载"];
     } finsih:^{
         if ([SVProgressHUD isVisible]) {
@@ -59,9 +62,19 @@
     _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TableViewCell class])];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     
     [self.view addSubview:_tableView];
 }
+
+-(void)headerRefresh
+{
+    [self retrieveJsonUseGETWithURL:REQUEST_URL prepare:nil finsih:^{
+        [_tableView.mj_header endRefreshing];
+    }];
+}
+
+
 
 
 -(void)retrieveJsonUseGETWithURL:(NSString *)url
@@ -86,7 +99,7 @@
 -(void)buildDataModelWithJson:(NSDictionary *)json
 {
     if ([json[@"code"] integerValue] == 0) {
-        [self.dataArray removeAllObjects];
+//        [self.dataArray removeAllObjects];
         NSArray *srcArray = json[@"data"];
         NSMutableArray <DataModel *> *modelArr = [NSMutableArray array];
         
@@ -104,7 +117,7 @@
                 array = @[modelArr[i]];
             }
             
-            [_dataArray addObject:array];
+            [self.dataArray insertObject:array atIndex:0];
         }
         
         [_tableView reloadData];

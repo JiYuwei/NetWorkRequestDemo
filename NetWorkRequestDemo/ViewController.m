@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "JYNetworkRequest.h"
 #import "TableViewCell.h"
+#import "DataModel.h"
 
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
@@ -16,11 +17,21 @@
 @interface ViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)NSMutableArray *dataArray;
 
 @end
 
 
 @implementation ViewController
+
+-(NSMutableArray *)dataArray
+{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    
+    return _dataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,23 +65,55 @@
 {
     [JYNetworkRequest retrieveJsonWithPrepare:prepare finish:finish needCache:YES requestType:HTTPRequestTypeGET fromURL:url parameters:@{} success:^(NSDictionary *json) {
         NSLog(@"%@",json);
+        [self buildDataModelWithJson:json];
+        
     } failure:^(NSError *error, BOOL needCache, NSDictionary *cachedJson) {
         NSLog(@"%@",error);
+        if (needCache) {
+            [self buildDataModelWithJson:cachedJson];
+        }
     }];
 }
 
+-(void)buildDataModelWithJson:(NSDictionary *)json
+{
+    if ([json[@"code"] integerValue] == 0) {
+        [self.dataArray removeAllObjects];
+        NSArray *srcArray = json[@"data"];
+        NSMutableArray <DataModel *> *modelArr = [NSMutableArray array];
+        
+        for (NSDictionary *dic in srcArray) {
+            DataModel *model = [DataModel modelWithDictionary:dic];
+            [modelArr addObject:model];
+        }
+        
+        for (NSInteger i = 0; i < modelArr.count; i+=2) {
+            NSArray <DataModel *> *array;
+            if (i < modelArr.count - 1) {
+                array = @[modelArr[i],modelArr[i+1]];
+            }
+            else{
+                array = @[modelArr[i]];
+            }
+            
+            [_dataArray addObject:array];
+        }
+        
+        [_tableView reloadData];
+    }
+}
 
 #pragma mark - Delegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _dataArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TableViewCell class])];
-    
+    cell.dataArray = _dataArray[indexPath.row];
     
     return cell;
 }

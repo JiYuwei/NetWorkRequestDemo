@@ -8,10 +8,17 @@
 
 #import "ViewController.h"
 #import "JYNetworkRequest.h"
+#import "TableViewCell.h"
 
-@interface ViewController ()
+#define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+
+@interface ViewController () <UITableViewDataSource,UITableViewDelegate>
+
+@property(nonatomic,strong)UITableView *tableView;
 
 @end
+
 
 @implementation ViewController
 
@@ -21,19 +28,22 @@
     self.navigationItem.title = @"AFNetworkingTest";
     
     NSString *url = @"https://app.bilibili.com/x/feed/index?access_key=f1f583b3c34d7eb53dfb2cd248c64ae6&actionKey=appkey&appkey=27eb53fc9058f8c3&build=5800&device=phone&idx=1494956798&mobi_app=iphone&network=wifi&open_event=&platform=ios&pull=1&sign=7280ea66a6494319d2f033b145dde8c3&style=2&ts=1499343223";
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"dd90bc78411df64e79947f8a30e535d0",@"signature",
-//                                     @"B29753C3A98AA69CAD388ACBEC3A9AF6",@"deviceid",
-//                                     @"c876e8f0f198e2fe2d7ea7b2f8f2fdb4",@"app_token",
-//                                     nil];
-    
-//    [JYNetworkRequest retrieveJsonUsePOSTfromURL:url parameters:parameters success:^(NSDictionary *json){
-//        NSLog(@"%@",json);
-//    } failure:^(NSError *error, BOOL needCache, NSDictionary *cachedJson) {
-//        NSLog(@"%@",error);
-//    }];
-    
+
+    [self createUI];
     [self retrieveJsonUseGETWithURL:url];
 }
+
+-(void)createUI
+{
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TableViewCell class])];
+    
+    [self.view addSubview:_tableView];
+}
+
 
 -(void)retrieveJsonUseGETWithURL:(NSString *)url
 {
@@ -47,6 +57,37 @@
     } failure:^(NSError *error, BOOL needCache, NSDictionary *cachedJson) {
         NSLog(@"%@",error);
     }];
+}
+
+
+#pragma mark - Delegate
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TableViewCell class])];
+    
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return cellHeight / 320 * SCREENWIDTH;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10;
 }
 
 - (void)didReceiveMemoryWarning {

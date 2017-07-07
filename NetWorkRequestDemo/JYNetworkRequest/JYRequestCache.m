@@ -151,7 +151,7 @@ static JYRequestCache *requestCache;
     BOOL res = nil;
     
     if ([_requestCacheDB open]) {
-        NSString *sqlStr = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, %@ varchar(32), %@ varchar(10000))",T_REQCACHE,REQKEY,REQVALUE];
+        NSString *sqlStr = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, %@ char(32) UNIQUE, %@ varchar(10000))",T_REQCACHE,REQKEY,REQVALUE];
         BOOL res = [_requestCacheDB executeUpdate:sqlStr];
         if (!res) {
             NSLog(@"error when creating database table");

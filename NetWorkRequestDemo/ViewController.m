@@ -32,13 +32,22 @@
 //        NSLog(@"%@",error);
 //    }];
     
-    [JYNetworkRequest retrieveJsonWithPrepare:nil finish:nil needCache:YES requestType:HTTPRequestTypeGET fromURL:url parameters:[NSDictionary dictionary] success:^(NSDictionary *json) {
+    [self retrieveJsonUseGETWithURL:url];
+}
+
+-(void)retrieveJsonUseGETWithURL:(NSString *)url
+{
+    return[self retrieveJsonUseGETWithURL:url prepare:nil finsih:nil];
+}
+
+-(void)retrieveJsonUseGETWithURL:(NSString *)url prepare:(prepareBlock)prepare finsih:(finishBlock)finish
+{
+    [JYNetworkRequest retrieveJsonWithPrepare:prepare finish:finish needCache:YES requestType:HTTPRequestTypeGET fromURL:url parameters:@{} success:^(NSDictionary *json) {
         NSLog(@"%@",json);
     } failure:^(NSError *error, BOOL needCache, NSDictionary *cachedJson) {
         NSLog(@"%@",error);
     }];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

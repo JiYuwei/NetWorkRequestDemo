@@ -113,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				09FBCCE31F0CD6C8004AC35D /* JYNetworkRequest */,
+				09FBCCED1F0E734C004AC35D /* Model */,
+				09FBCCEE1F0E7359004AC35D /* ViewModel */,
 				09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */,
 				09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */,
 				09FBCCB61F0CD2DE004AC35D /* ViewController.h */,
@@ -160,6 +162,20 @@
 				09FBCCE51F0CD715004AC35D /* JYNetworkRequest.m */,
 			);
 			name = JYNetworkRequest;
+			sourceTree = "<group>";
+		};
+		09FBCCED1F0E734C004AC35D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		09FBCCEE1F0E7359004AC35D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 		86199992CE3F0C5A110D46D9 /* Pods */ = {

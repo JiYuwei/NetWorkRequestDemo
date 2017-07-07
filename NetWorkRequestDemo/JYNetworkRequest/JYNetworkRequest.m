@@ -98,9 +98,6 @@ static JYNetworkRequest *request;
         case HTTPRequestTypeGET:
         {
             [_manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                if (finish) {
-                    finish();
-                }
                 
                 NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
                 if (json && needCache) {
@@ -111,11 +108,11 @@ static JYNetworkRequest *request;
                 if (success) {
                     success(json);
                 }
-                
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if (finish) {
                     finish();
                 }
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
                 NSDictionary *json = nil;
                 if (needCache) {
@@ -126,7 +123,9 @@ static JYNetworkRequest *request;
                 if (failure) {
                     failure(error,needCache,json);
                 }
-                
+                if (finish) {
+                    finish();
+                }
             }];
         }
             break;

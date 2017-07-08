@@ -39,15 +39,11 @@ static JYNetworkRequest *request;
     if (self = [super init]) {
         _manager = [AFHTTPSessionManager manager];
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        _manager.responseSerializer.stringEncoding = NSUTF8StringEncoding;
         _manager.requestSerializer.timeoutInterval = 20;
-        [_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [_manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         
-        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        
-//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-//        policy.validatesDomainName = NO;
-//        _manager.securityPolicy = policy;
+//        [_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//        [_manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         
         NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"bilibili" ofType:@"cer"];
         NSData * certData =[NSData dataWithContentsOfFile:cerPath];
@@ -99,10 +95,12 @@ static JYNetworkRequest *request;
         {
             [_manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
-                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
+//                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
+                NSDictionary *json = (NSDictionary *)responseObject;
+                
                 if (json && needCache) {
                     NSString *requestKey = [self generateRequestKey:url parameters:parameters];
-                    [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonData:responseObject];
+                    [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonDict:json];
                 }
                 
                 if (success) {
@@ -132,11 +130,10 @@ static JYNetworkRequest *request;
         case HTTPRequestTypePOST:
         {
             [_manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                if (finish) {
-                    finish();
-                }
                 
-                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
+//                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
+                NSDictionary *json = (NSDictionary *)responseObject;
+                
                 if (json && needCache) {
                     NSString *requestKey = [self generateRequestKey:url parameters:parameters];
                     [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonData:responseObject];
@@ -145,11 +142,11 @@ static JYNetworkRequest *request;
                 if (success) {
                     success(json);
                 }
-                
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if (finish) {
                     finish();
                 }
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
                 NSDictionary *json = nil;
                 if (needCache) {
@@ -159,6 +156,9 @@ static JYNetworkRequest *request;
                 
                 if (failure) {
                     failure(error,needCache,json);
+                }
+                if (finish) {
+                    finish();
                 }
             }];
         }

@@ -17,6 +17,7 @@
 
 - (NSDictionary *)getFromCache:(NSString *)requestKey;
 
+- (BOOL)putToCache:(NSString *)requestKey jsonDict:(NSDictionary *)json;
 - (BOOL)putToCache:(NSString *)requestKey jsonData:(NSData *)jsonData;
 - (BOOL)putToCache:(NSString *)requestKey cacheStr:(NSString *)cacheStr;
 

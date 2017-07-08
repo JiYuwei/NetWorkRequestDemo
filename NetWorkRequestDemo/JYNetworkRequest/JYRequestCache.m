@@ -103,6 +103,11 @@ static JYRequestCache *requestCache;
 }
 
 //添加缓存
+-(BOOL)putToCache:(NSString *)requestKey jsonDict:(NSDictionary *)json
+{
+    return [self putToCache:requestKey cacheStr:[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]];
+}
+
 -(BOOL)putToCache:(NSString *)requestKey jsonData:(NSData *)jsonData
 {
     return [self putToCache:requestKey cacheStr:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];

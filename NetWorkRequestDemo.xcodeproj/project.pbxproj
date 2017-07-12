@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09189B941F166EA4008A08E2 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09189B931F166EA4008A08E2 /* BaseViewController.m */; };
+		09189B971F166EFA008A08E2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09189B961F166EFA008A08E2 /* HomeViewController.m */; };
 		09FBCCB21F0CD2DE004AC35D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB11F0CD2DE004AC35D /* main.m */; };
 		09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */; };
 		09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB71F0CD2DE004AC35D /* ViewController.m */; };
@@ -40,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09189B921F166EA4008A08E2 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		09189B931F166EA4008A08E2 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		09189B951F166EFA008A08E2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		09189B961F166EFA008A08E2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		09FBCCAD1F0CD2DE004AC35D /* NetWorkRequestDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetWorkRequestDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FBCCB11F0CD2DE004AC35D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,6 +131,10 @@
 				09FBCCEE1F0E7359004AC35D /* View */,
 				09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */,
 				09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */,
+				09189B921F166EA4008A08E2 /* BaseViewController.h */,
+				09189B931F166EA4008A08E2 /* BaseViewController.m */,
+				09189B951F166EFA008A08E2 /* HomeViewController.h */,
+				09189B961F166EFA008A08E2 /* HomeViewController.m */,
 				09FBCCB61F0CD2DE004AC35D /* ViewController.h */,
 				09FBCCB71F0CD2DE004AC35D /* ViewController.m */,
 				09FBCCBC1F0CD2DE004AC35D /* Assets.xcassets */,
@@ -396,9 +406,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				09FBCCE91F0D0124004AC35D /* JYRequestCache.m in Sources */,
+				09189B941F166EA4008A08E2 /* BaseViewController.m in Sources */,
 				09FBCCF21F0F58DC004AC35D /* TableViewCell.m in Sources */,
 				09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */,
 				09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */,
+				09189B971F166EFA008A08E2 /* HomeViewController.m in Sources */,
 				09FBCCF61F0F62D1004AC35D /* DataModel.m in Sources */,
 				09FBCCB21F0CD2DE004AC35D /* main.m in Sources */,
 				09FBCCE61F0CD715004AC35D /* JYNetworkRequest.m in Sources */,

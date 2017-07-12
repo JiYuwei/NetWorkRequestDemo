@@ -75,14 +75,12 @@ static JYNetworkRequest *request;
     return [[self sharedRequest] retrieveJsonWithPrepare:prepare finish:finish needCache:needCache requestType:type fromURL:url parameters:parameters success:success failure:failure];
 }
 
-+(void)cancelGETRequestWithURL:(NSString *)url
++(void)cancelRequestWithURL:(NSString *)url
 {
-    return [[self sharedRequest] cancelRequestWithMethod:@"GET" url:url];
-}
-
-+(void)cancelPOSTRequestWithURL:(NSString *)url
-{
-    return [[self sharedRequest] cancelRequestWithMethod:@"POST" url:url];
+    if (!url) {
+        return;
+    }
+    return [[self sharedRequest] cancelRequestWithURL:url];
 }
 
 +(void)cancelAllRequest{
@@ -122,6 +120,13 @@ static JYNetworkRequest *request;
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
+                if (task.error.code == NSURLErrorCancelled) {
+                    if (finish) {
+                        finish();
+                    }
+                    return;
+                }
+                
                 NSDictionary *json = nil;
                 if (needCache) {
                     NSString *requestKey = [self generateRequestKey:url parameters:parameters];
@@ -157,6 +162,13 @@ static JYNetworkRequest *request;
                 }
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
+                if (task.error.code == NSURLErrorCancelled) {
+                    if (finish) {
+                        finish();
+                    }
+                    return;
+                }
                 
                 NSDictionary *json = nil;
                 if (needCache) {
@@ -198,27 +210,28 @@ static JYNetworkRequest *request;
     return [requestUrl md5];
 }
 
-- (void)cancelRequestWithMethod:(NSString *)method url:(NSString *)url
+- (void)cancelRequestWithURL:(NSString *)url
 {
-    NSError *error;
-    
-    NSString *pathToBeMatched = [[[_manager.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:url] absoluteString] parameters:nil error:&error] URL] path];
-    
-    for (NSOperation *operation in [_manager.operationQueue operations]) {
-        if ([operation isKindOfClass:[NSURLSessionDataTask class]]) {
-            BOOL hasMatchingMethod = [method isEqualToString:[[(NSURLSessionDataTask *)operation currentRequest] HTTPMethod]];
-            BOOL hasMatchingPath = [[[[(NSURLSessionDataTask *)operation currentRequest] URL] path] isEqual:pathToBeMatched];
-            
-            if (hasMatchingMethod && hasMatchingPath) {
-                [operation cancel];
+    [_manager.session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        if (tasks.count == 0) {
+            return;
+        }
+        
+        for (NSURLSessionTask *task in tasks) {
+            if (!url) {
+                [task cancel];
+            }
+            else if ([task.currentRequest.URL.absoluteString isEqualToString:url]) {
+                [task cancel];
+                return;
             }
         }
-    }
+    }];
 }
 
 -(void)cancelAllRequest
 {
-    [_manager.operationQueue cancelAllOperations];
+    [self cancelRequestWithURL:nil];
 }
 
 @end

@@ -41,6 +41,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"AFNetworkingTest";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelReq)];
+    
     
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
 
@@ -55,12 +57,12 @@
         }
     }];
     
-    [self performSelector:@selector(cancelReq) withObject:nil afterDelay:0.01];
+    [self performSelector:@selector(cancelReq) withObject:nil afterDelay:0.5];
 }
 
 -(void)cancelReq
 {
-    [JYNetworkRequest cancelGETRequestWithURL:REQUEST_URL];
+    [JYNetworkRequest cancelRequestWithURL:REQUEST_URL];
 }
 
 -(void)createUI

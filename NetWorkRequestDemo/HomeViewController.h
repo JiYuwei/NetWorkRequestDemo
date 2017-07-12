@@ -1,14 +1,13 @@
 //
-//  ViewController.h
+//  HomeViewController.h
 //  NetWorkRequestDemo
 //
-//  Created by 纪宇伟 on 2017/7/5.
+//  Created by 纪宇伟 on 2017/7/12.
 //  Copyright © 2017年 jyw. All rights reserved.
 //
 
 #import "BaseViewController.h"
 
-@interface ViewController : BaseViewController
+@interface HomeViewController : BaseViewController
 
 @end
-

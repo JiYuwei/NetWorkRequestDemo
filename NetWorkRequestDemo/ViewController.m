@@ -48,11 +48,19 @@
     
     [self retrieveJsonUseGETWithURL:REQUEST_URL prepare:^{
         [SVProgressHUD showWithStatus:@"正在加载"];
+        
     } finsih:^{
         if ([SVProgressHUD isVisible]) {
             [SVProgressHUD dismiss];
         }
     }];
+    
+    [self performSelector:@selector(cancelReq) withObject:nil afterDelay:0.01];
+}
+
+-(void)cancelReq
+{
+    [JYNetworkRequest cancelGETRequestWithURL:REQUEST_URL];
 }
 
 -(void)createUI
@@ -72,6 +80,7 @@
     [self retrieveJsonUseGETWithURL:REQUEST_URL prepare:nil finsih:^{
         [_tableView.mj_header endRefreshing];
     }];
+    
 }
 
 

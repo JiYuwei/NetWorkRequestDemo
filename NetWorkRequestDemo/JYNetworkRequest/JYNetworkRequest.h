@@ -42,6 +42,10 @@ typedef void(^requestFailureBlock) (NSError *error,BOOL needCache,NSDictionary *
                        success:(requestSuccessBlock)success
                        failure:(requestFailureBlock)failure;
 
++(void)cancelGETRequestWithURL:(NSString *)url;
+
++(void)cancelPOSTRequestWithURL:(NSString *)url;
+
 +(void)cancelAllRequest;
 
 @end

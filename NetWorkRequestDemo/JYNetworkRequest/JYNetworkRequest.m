@@ -75,6 +75,16 @@ static JYNetworkRequest *request;
     return [[self sharedRequest] retrieveJsonWithPrepare:prepare finish:finish needCache:needCache requestType:type fromURL:url parameters:parameters success:success failure:failure];
 }
 
++(void)cancelGETRequestWithURL:(NSString *)url
+{
+    return [[self sharedRequest] cancelRequestWithMethod:@"GET" url:url];
+}
+
++(void)cancelPOSTRequestWithURL:(NSString *)url
+{
+    return [[self sharedRequest] cancelRequestWithMethod:@"POST" url:url];
+}
+
 +(void)cancelAllRequest{
     return [[self sharedRequest] cancelAllRequest];
 }
@@ -186,6 +196,24 @@ static JYNetworkRequest *request;
     }
     
     return [requestUrl md5];
+}
+
+- (void)cancelRequestWithMethod:(NSString *)method url:(NSString *)url
+{
+    NSError *error;
+    
+    NSString *pathToBeMatched = [[[_manager.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:url] absoluteString] parameters:nil error:&error] URL] path];
+    
+    for (NSOperation *operation in [_manager.operationQueue operations]) {
+        if ([operation isKindOfClass:[NSURLSessionDataTask class]]) {
+            BOOL hasMatchingMethod = [method isEqualToString:[[(NSURLSessionDataTask *)operation currentRequest] HTTPMethod]];
+            BOOL hasMatchingPath = [[[[(NSURLSessionDataTask *)operation currentRequest] URL] path] isEqual:pathToBeMatched];
+            
+            if (hasMatchingMethod && hasMatchingPath) {
+                [operation cancel];
+            }
+        }
+    }
 }
 
 -(void)cancelAllRequest

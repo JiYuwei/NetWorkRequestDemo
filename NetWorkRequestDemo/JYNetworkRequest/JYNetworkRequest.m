@@ -60,9 +60,9 @@ static JYNetworkRequest *request;
 
 #pragma mark - Public
 
-+(void)retrieveJsonUseGETfromURL:(NSString *)url success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
++(void)retrieveJsonUseGETfromURL:(NSString *)url parameters:(NSDictionary *)parameters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
 {
-    return [self retrieveJsonWithPrepare:nil finish:nil needCache:NO requestType:HTTPRequestTypeGET fromURL:url parameters:[NSDictionary dictionary] success:success failure:failure];
+    return [self retrieveJsonWithPrepare:nil finish:nil needCache:NO requestType:HTTPRequestTypeGET fromURL:url parameters:parameters success:success failure:failure];
 }
 
 +(void)retrieveJsonUsePOSTfromURL:(NSString *)url parameters:(NSDictionary *)parameters success:(requestSuccessBlock)success failure:(requestFailureBlock)failure
@@ -74,6 +74,34 @@ static JYNetworkRequest *request;
 {
     return [[self sharedRequest] retrieveJsonWithPrepare:prepare finish:finish needCache:needCache requestType:type fromURL:url parameters:parameters success:success failure:failure];
 }
+
+#pragma mark -
+
++(void)uploadImageWithURL:(NSString *)url parameters:(NSDictionary *)parameters image:(UIImage *)image isOriginal:(BOOL)original success:(requestSuccessBlock)success failure:(failureBlock)failure
+{
+    return [self uploadMutiImageWithURL:url parameters:parameters images:@[image] isOriginal:original progress:nil success:success failure:failure];
+}
+
++(void)uploadMutiImageWithURL:(NSString *)url parameters:(NSDictionary *)parameters images:(NSArray <UIImage *> *)images isOriginal:(BOOL)original progress:(progressBlock)uploadProgress success:(requestSuccessBlock)success failure:(failureBlock)failure
+{
+    return[[self sharedRequest] uploadMutiImageWithURL:url parameters:parameters images:images isOriginal:original progress:uploadProgress success:success failure:failure];
+}
+
+#pragma mark -
+
++(void)uploadFileWithURL:(NSString *)url parameters:(NSDictionary *)parameters fileURL:(NSURL *)fileURL name:(NSString *)name fileName:(NSString *)fileName mimeType:(NSString *)mimeType progress:(progressBlock)uploadProgress success:(requestSuccessBlock)success failure:(failureBlock)failure
+{
+    return [[self sharedRequest] uploadFileWithURL:url parameters:parameters fileURL:fileURL name:name fileName:fileName mimeType:mimeType progress:uploadProgress success:success failure:failure];
+}
+
+#pragma mark -
+
++(void)downloadFileWithURL:(NSString *)url savePath:(NSString *)savePath progress:(progressBlock)donloadProgress success:(void (^)(NSURLResponse *response, NSURL *filePath))success failure:(failureBlock)failure
+{
+    return [[self sharedRequest] downloadFileWithURL:url savePath:savePath progress:donloadProgress success:success failure:failure];
+}
+
+#pragma mark -
 
 +(void)cancelRequestWithURL:(NSString *)url
 {
@@ -192,8 +220,84 @@ static JYNetworkRequest *request;
     
 }
 
+-(void)uploadMutiImageWithURL:(NSString *)url parameters:(NSDictionary *)parameters images:(NSArray <UIImage *> *)images isOriginal:(BOOL)original progress:(progressBlock)uploadProgress success:(requestSuccessBlock)success failure:(failureBlock)failure
+{
+    if (!url) {
+        return;
+    }
+    
+    [_manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        if (images.count > 0) {
+            for (NSInteger i = 0; i < images.count; i++) {
+                UIImage *image = images[i];
+                NSData *imageData = UIImageJPEGRepresentation(image, original?1.0:0.4);
+                NSString *name = [NSString stringWithFormat:@"images"];
+                NSString *fileName = [NSString stringWithFormat:@"image%ld.jpg",i];
+                
+                [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
+            }
+        }
+    } progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *json = (NSDictionary *)responseObject;
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+}
 
-- (NSString *)generateRequestKey:(NSString *)requestUrl parameters:(NSDictionary *)parameters
+-(void)uploadFileWithURL:(NSString *)url parameters:(NSDictionary *)parameters fileURL:(NSURL *)fileURL name:(NSString *)name fileName:(NSString *)fileName mimeType:(NSString *)mimeType progress:(progressBlock)uploadProgress success:(requestSuccessBlock)success failure:(failureBlock)failure
+{
+    if (!url) {
+        return;
+    }
+    
+    [_manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        [formData appendPartWithFileURL:fileURL name:name fileName:fileName mimeType:mimeType error:nil];
+        
+    } progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *json = (NSDictionary *)responseObject;
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+-(void)downloadFileWithURL:(NSString *)url savePath:(NSString *)savePath progress:(progressBlock)donloadProgress success:(void (^)(NSURLResponse *response, NSURL *filePath))success failure:(failureBlock)failure
+{
+    [_manager downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] progress:donloadProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        return [NSURL URLWithString:savePath];
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        if (error) {
+            if (failure) {
+                failure(error);
+            }
+        }
+        else{
+            if (success) {
+                success(response,filePath);
+            }
+        }
+    }];
+}
+
+
+-(NSString *)generateRequestKey:(NSString *)requestUrl parameters:(NSDictionary *)parameters
 {
     NSArray *paramNames = [parameters allKeys];
     NSArray *sortedParamNames = [paramNames sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
@@ -201,7 +305,7 @@ static JYNetworkRequest *request;
                                      return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
                                  }];
     
-    requestUrl = [requestUrl stringByAppendingString:@"="];
+    requestUrl = [requestUrl stringByAppendingString:@"?"];
     for (NSString *paramName in sortedParamNames)
     {
         requestUrl = [requestUrl stringByAppendingFormat:@"%@=%@", paramName, [parameters objectForKey:paramName]];
@@ -210,7 +314,7 @@ static JYNetworkRequest *request;
     return [requestUrl md5];
 }
 
-- (void)cancelRequestWithURL:(NSString *)url
+-(void)cancelRequestWithURL:(NSString *)url
 {
     [_manager.session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
         if (tasks.count == 0) {

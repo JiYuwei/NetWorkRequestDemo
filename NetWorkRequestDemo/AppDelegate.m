@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "HomeViewController.h"
+#import "BaseTabbarController.h"
 
 @interface AppDelegate ()
 
@@ -19,10 +19,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    HomeViewController *vc = [[HomeViewController alloc] init];
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
+    BaseTabbarController *vc = [[BaseTabbarController alloc] init];
     
-    self.window.rootViewController = navi;
+    self.window.rootViewController = vc;
     [self.window makeKeyAndVisible];
     
     return YES;

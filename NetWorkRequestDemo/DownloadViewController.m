@@ -1,32 +1,23 @@
 //
-//  HomeViewController.m
+//  DownloadViewController.m
 //  NetWorkRequestDemo
 //
-//  Created by 纪宇伟 on 2017/7/12.
+//  Created by 纪宇伟 on 2017/7/15.
 //  Copyright © 2017年 jyw. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "ViewController.h"
+#import "DownloadViewController.h"
 
-@interface HomeViewController ()
+@interface DownloadViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation DownloadViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationItem.title = @"首页";
+    self.navigationItem.title = @"下载";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"next" style:UIBarButtonItemStylePlain target:self action:@selector(openVC)];
-}
-
--(void)openVC
-{
-    ViewController *vc = [[ViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

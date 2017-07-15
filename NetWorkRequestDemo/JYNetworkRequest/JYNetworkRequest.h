@@ -15,14 +15,16 @@ typedef NS_ENUM(NSInteger, HTTPRequestType) {
 
 typedef void(^prepareBlock)();
 typedef void(^finishBlock)();
+typedef void(^progressBlock)(NSProgress *progress);
 typedef void(^requestSuccessBlock) (NSDictionary *json);
 typedef void(^requestFailureBlock) (NSError *error,BOOL needCache,NSDictionary *cachedJson);
+typedef void(^failureBlock) (NSError *error);
 
 
 @interface JYNetworkRequest : NSObject
 
-
 +(void)retrieveJsonUseGETfromURL:(NSString *)url
+                      parameters:(NSDictionary *)parameters
                          success:(requestSuccessBlock)success
                          failure:(requestFailureBlock)failure;
 
@@ -38,9 +40,46 @@ typedef void(^requestFailureBlock) (NSError *error,BOOL needCache,NSDictionary *
                      needCache:(BOOL)needCache
                    requestType:(HTTPRequestType)type
                        fromURL:(NSString *)url
-                     parameters:(NSDictionary *)parameters
+                    parameters:(NSDictionary *)parameters
                        success:(requestSuccessBlock)success
                        failure:(requestFailureBlock)failure;
+
+
+
++(void)uploadImageWithURL:(NSString *)url
+               parameters:(NSDictionary *)parameters
+                    image:(UIImage *)image
+               isOriginal:(BOOL)original
+                  success:(requestSuccessBlock)success
+                  failure:(failureBlock)failure;
+
+
++(void)uploadMutiImageWithURL:(NSString *)url
+                      parameters:(NSDictionary *)parameters
+                          images:(NSArray <UIImage *> *)images
+                      isOriginal:(BOOL)original
+                        progress:(progressBlock)uploadProgress
+                         success:(requestSuccessBlock)success
+                         failure:(failureBlock)failure;
+
+
++(void)uploadFileWithURL:(NSString *)url
+              parameters:(NSDictionary *)parameters
+                 fileURL:(NSURL *)fileURL
+                    name:(NSString *)name
+                fileName:(NSString *)fileName
+                mimeType:(NSString *)mimeType
+                progress:(progressBlock)uploadProgress
+                 success:(requestSuccessBlock)success
+                 failure:(failureBlock)failure;
+
+
++(void)downloadFileWithURL:(NSString *)url
+                  savePath:(NSString *)savePath
+                  progress:(progressBlock)donloadProgress
+                   success:(void (^)(NSURLResponse *response, NSURL *filePath))success
+                   failure:(failureBlock)failure;
+
 
 +(void)cancelRequestWithURL:(NSString *)url;
 

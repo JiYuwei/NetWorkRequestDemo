@@ -57,7 +57,7 @@
         }
     }];
     
-    [self performSelector:@selector(cancelReq) withObject:nil afterDelay:0.5];
+//    [self performSelector:@selector(cancelReq) withObject:nil afterDelay:0.5];
 }
 
 -(void)cancelReq

@@ -37,7 +37,7 @@ static JYNetworkRequest *request;
 -(instancetype)init
 {
     if (self = [super init]) {
-        _manager = [AFHTTPSessionManager manager];
+        _manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         _manager.responseSerializer.stringEncoding = NSUTF8StringEncoding;
         _manager.requestSerializer.timeoutInterval = 20;
@@ -45,14 +45,14 @@ static JYNetworkRequest *request;
 //        [_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 //        [_manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         
-        NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"bilibili" ofType:@"cer"];
-        NSData * certData =[NSData dataWithContentsOfFile:cerPath];
-        NSSet * certSet = [[NSSet alloc] initWithObjects:certData, nil];
-        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certSet];
-        securityPolicy.validatesDomainName = NO;
-        securityPolicy.allowInvalidCertificates = YES;
-        
-        _manager.securityPolicy = securityPolicy;
+//        NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"bilibili" ofType:@"cer"];
+//        NSData * certData =[NSData dataWithContentsOfFile:cerPath];
+//        NSSet * certSet = [[NSSet alloc] initWithObjects:certData, nil];
+//        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certSet];
+//        securityPolicy.validatesDomainName = NO;
+//        securityPolicy.allowInvalidCertificates = YES;
+//        
+//        _manager.securityPolicy = securityPolicy;
     }
     
     return self;
@@ -96,9 +96,9 @@ static JYNetworkRequest *request;
 
 #pragma mark -
 
-+(void)downloadFileWithURL:(NSString *)url savePath:(NSString *)savePath progress:(progressBlock)donloadProgress success:(void (^)(NSURLResponse *response, NSURL *filePath))success failure:(failureBlock)failure
++(void)downloadFileWithURL:(NSString *)url progress:(progressBlock)donloadProgress success:(void (^)(NSURLResponse *response, NSURL *filePath))success failure:(failureBlock)failure
 {
-    return [[self sharedRequest] downloadFileWithURL:url savePath:savePath progress:donloadProgress success:success failure:failure];
+    return [[self sharedRequest] downloadFileWithURL:url progress:donloadProgress success:success failure:failure];
 }
 
 #pragma mark -
@@ -278,10 +278,15 @@ static JYNetworkRequest *request;
     }];
 }
 
--(void)downloadFileWithURL:(NSString *)url savePath:(NSString *)savePath progress:(progressBlock)donloadProgress success:(void (^)(NSURLResponse *response, NSURL *filePath))success failure:(failureBlock)failure
+-(void)downloadFileWithURL:(NSString *)url progress:(progressBlock)donloadProgress success:(void (^)(NSURLResponse *response, NSURL *filePath))success failure:(failureBlock)failure
 {
-    [_manager downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] progress:donloadProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        return [NSURL URLWithString:savePath];
+    NSURLSessionDownloadTask *downloadTask = [_manager downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] progress:donloadProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        
+        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).lastObject;
+        NSString *savePath = [path stringByAppendingPathComponent:response.suggestedFilename];
+        
+        return [NSURL fileURLWithPath:savePath];
+        
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         if (error) {
             if (failure) {
@@ -294,6 +299,8 @@ static JYNetworkRequest *request;
             }
         }
     }];
+    
+    [downloadTask resume];
 }
 
 
@@ -316,26 +323,37 @@ static JYNetworkRequest *request;
 
 -(void)cancelRequestWithURL:(NSString *)url
 {
-    [_manager.session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
-        if (tasks.count == 0) {
+    if (_manager.tasks.count == 0) {
+        return;
+    }
+    
+    for (NSURLSessionTask *task in _manager.tasks) {
+        if ([task.originalRequest.URL.absoluteString isEqualToString:url]) {
+            [task cancel];
             return;
         }
-        
-        for (NSURLSessionTask *task in tasks) {
-            if (!url) {
-                [task cancel];
-            }
-            else if ([task.currentRequest.URL.absoluteString isEqualToString:url]) {
-                [task cancel];
-                return;
-            }
-        }
-    }];
+    }
+    
+//    [_manager.session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+//        if (tasks.count == 0) {
+//            return;
+//        }
+//        
+//        for (NSURLSessionTask *task in tasks) {
+//            if (!url) {
+//                [task cancel];
+//            }
+//            else if ([task.currentRequest.URL.absoluteString isEqualToString:url]) {
+//                [task cancel];
+//                return;
+//            }
+//        }
+//    }];
 }
 
 -(void)cancelAllRequest
 {
-    [self cancelRequestWithURL:nil];
+    [_manager.tasks makeObjectsPerformSelector:@selector(cancel)];
 }
 
 @end

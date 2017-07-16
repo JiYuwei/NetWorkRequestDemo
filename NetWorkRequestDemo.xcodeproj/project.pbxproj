@@ -11,6 +11,9 @@
 		09189B971F166EFA008A08E2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09189B961F166EFA008A08E2 /* HomeViewController.m */; };
 		09BC28071F1A208A00598BA0 /* BaseTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28061F1A208A00598BA0 /* BaseTabbarController.m */; };
 		09BC280A1F1A20AC00598BA0 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28091F1A20AC00598BA0 /* DownloadViewController.m */; };
+		09BC280E1F1A25C800598BA0 /* DownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC280C1F1A25C800598BA0 /* DownloadCell.m */; };
+		09BC280F1F1A25C800598BA0 /* DownloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BC280D1F1A25C800598BA0 /* DownloadCell.xib */; };
+		09BC28121F1A34F300598BA0 /* AddDownloadTaskController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28111F1A34F300598BA0 /* AddDownloadTaskController.m */; };
 		09FBCCB21F0CD2DE004AC35D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB11F0CD2DE004AC35D /* main.m */; };
 		09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */; };
 		09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB71F0CD2DE004AC35D /* ViewController.m */; };
@@ -52,6 +55,11 @@
 		09BC28061F1A208A00598BA0 /* BaseTabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabbarController.m; sourceTree = "<group>"; };
 		09BC28081F1A20AC00598BA0 /* DownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewController.h; sourceTree = "<group>"; };
 		09BC28091F1A20AC00598BA0 /* DownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewController.m; sourceTree = "<group>"; };
+		09BC280B1F1A25C800598BA0 /* DownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCell.h; sourceTree = "<group>"; };
+		09BC280C1F1A25C800598BA0 /* DownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadCell.m; sourceTree = "<group>"; };
+		09BC280D1F1A25C800598BA0 /* DownloadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadCell.xib; sourceTree = "<group>"; };
+		09BC28101F1A34F300598BA0 /* AddDownloadTaskController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDownloadTaskController.h; sourceTree = "<group>"; };
+		09BC28111F1A34F300598BA0 /* AddDownloadTaskController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDownloadTaskController.m; sourceTree = "<group>"; };
 		09FBCCAD1F0CD2DE004AC35D /* NetWorkRequestDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetWorkRequestDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FBCCB11F0CD2DE004AC35D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -147,6 +155,8 @@
 				09FBCCB71F0CD2DE004AC35D /* ViewController.m */,
 				09BC28081F1A20AC00598BA0 /* DownloadViewController.h */,
 				09BC28091F1A20AC00598BA0 /* DownloadViewController.m */,
+				09BC28101F1A34F300598BA0 /* AddDownloadTaskController.h */,
+				09BC28111F1A34F300598BA0 /* AddDownloadTaskController.m */,
 				09FBCCBC1F0CD2DE004AC35D /* Assets.xcassets */,
 				09FBCCC11F0CD2DE004AC35D /* Info.plist */,
 				09FBCCF71F10EF2A004AC35D /* bilibili.cer */,
@@ -204,6 +214,9 @@
 		09FBCCEE1F0E7359004AC35D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				09BC280B1F1A25C800598BA0 /* DownloadCell.h */,
+				09BC280C1F1A25C800598BA0 /* DownloadCell.m */,
+				09BC280D1F1A25C800598BA0 /* DownloadCell.xib */,
 				09FBCCEF1F0F58DC004AC35D /* TableViewCell.h */,
 				09FBCCF01F0F58DC004AC35D /* TableViewCell.m */,
 				09FBCCF11F0F58DC004AC35D /* TableViewCell.xib */,
@@ -341,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09FBCCF81F10EF35004AC35D /* bilibili.cer in Resources */,
+				09BC280F1F1A25C800598BA0 /* DownloadCell.xib in Resources */,
 				09FBCCF31F0F58DC004AC35D /* TableViewCell.xib in Resources */,
 				09FBCCBD1F0CD2DE004AC35D /* Assets.xcassets in Resources */,
 			);
@@ -420,12 +434,14 @@
 				09BC28071F1A208A00598BA0 /* BaseTabbarController.m in Sources */,
 				09FBCCF21F0F58DC004AC35D /* TableViewCell.m in Sources */,
 				09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */,
+				09BC280E1F1A25C800598BA0 /* DownloadCell.m in Sources */,
 				09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */,
 				09189B971F166EFA008A08E2 /* HomeViewController.m in Sources */,
 				09FBCCF61F0F62D1004AC35D /* DataModel.m in Sources */,
 				09FBCCB21F0CD2DE004AC35D /* main.m in Sources */,
 				09FBCCE61F0CD715004AC35D /* JYNetworkRequest.m in Sources */,
 				09BC280A1F1A20AC00598BA0 /* DownloadViewController.m in Sources */,
+				09BC28121F1A34F300598BA0 /* AddDownloadTaskController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -145,7 +145,7 @@ static JYRequestCache *requestCache;
 
 -(NSString *)cachePath
 {
-    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).lastObject;
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).lastObject;
     NSString *filePath = [path stringByAppendingPathComponent:@"requestCache.db"];
     
     return filePath;

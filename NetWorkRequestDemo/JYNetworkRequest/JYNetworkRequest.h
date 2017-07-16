@@ -75,7 +75,6 @@ typedef void(^failureBlock) (NSError *error);
 
 
 +(void)downloadFileWithURL:(NSString *)url
-                  savePath:(NSString *)savePath
                   progress:(progressBlock)donloadProgress
                    success:(void (^)(NSURLResponse *response, NSURL *filePath))success
                    failure:(failureBlock)failure;

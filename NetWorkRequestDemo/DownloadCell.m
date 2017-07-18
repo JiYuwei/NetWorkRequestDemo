@@ -7,6 +7,7 @@
 //
 
 #import "DownloadCell.h"
+#import "DownloadModel.h"
 
 @interface DownloadCell ()
 
@@ -21,6 +22,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+-(void)setFileDataModel:(DownloadModel *)fileDataModel
+{
+    if (_fileDataModel != fileDataModel) {
+        _fileDataModel = fileDataModel;
+    }
+    
+    _fileTitleLabel.text = _fileDataModel.fileName;
+    _fileSizeLabel.text = [NSString stringWithFormat:@"%@  %@",_fileDataModel.fileSize,_fileDataModel.downloadPercent];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

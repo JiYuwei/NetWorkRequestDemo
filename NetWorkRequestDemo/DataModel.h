@@ -6,9 +6,9 @@
 //  Copyright © 2017年 jyw. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BaseModel.h"
 
-@interface DataModel : NSObject
+@interface DataModel : BaseModel
 
 @property(nonatomic,copy)NSString *ad_index;
 @property(nonatomic,copy)NSString *client_ip;
@@ -36,8 +36,5 @@
 @property(nonatomic,copy)NSString *title;
 @property(nonatomic,copy)NSString *tname;
 @property(nonatomic,copy)NSString *uri;
-
-+ (instancetype)modelWithDictionary:(NSDictionary *)dict;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 @end

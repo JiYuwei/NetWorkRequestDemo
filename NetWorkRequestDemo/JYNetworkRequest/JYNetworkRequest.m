@@ -177,10 +177,10 @@ static JYNetworkRequest *request;
 //                NSDictionary *json = [JYRequestCache jsonData2NSDictionary:responseObject];
                 NSDictionary *json = (NSDictionary *)responseObject;
                 
-                if (json && needCache) {
-                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
-                    [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonData:responseObject];
-                }
+//                if (json && needCache) {
+//                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
+//                    [[JYRequestCache sharedRequestCache] putToCache:requestKey jsonData:responseObject];
+//                }
                 
                 if (success) {
                     success(json);
@@ -199,10 +199,10 @@ static JYNetworkRequest *request;
                 }
                 
                 NSDictionary *json = nil;
-                if (needCache) {
-                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
-                    json = [[JYRequestCache sharedRequestCache] getFromCache:requestKey];
-                }
+//                if (needCache) {
+//                    NSString *requestKey = [self generateRequestKey:url parameters:parameters];
+//                    json = [[JYRequestCache sharedRequestCache] getFromCache:requestKey];
+//                }
                 
                 if (failure) {
                     failure(error,needCache,json);
@@ -282,7 +282,10 @@ static JYNetworkRequest *request;
 {
     NSURLSessionDownloadTask *downloadTask = [_manager downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] progress:donloadProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         
-        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).lastObject;
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).lastObject stringByAppendingPathComponent:@"Downloadfiles"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+        }
         NSString *savePath = [path stringByAppendingPathComponent:response.suggestedFilename];
         
         return [NSURL fileURLWithPath:savePath];

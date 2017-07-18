@@ -14,6 +14,12 @@
 		09BC280E1F1A25C800598BA0 /* DownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC280C1F1A25C800598BA0 /* DownloadCell.m */; };
 		09BC280F1F1A25C800598BA0 /* DownloadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BC280D1F1A25C800598BA0 /* DownloadCell.xib */; };
 		09BC28121F1A34F300598BA0 /* AddDownloadTaskController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28111F1A34F300598BA0 /* AddDownloadTaskController.m */; };
+		09BC28151F1B72A700598BA0 /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28141F1B72A700598BA0 /* DownloadModel.m */; };
+		09BC28181F1B730800598BA0 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28171F1B730800598BA0 /* BaseModel.m */; };
+		09BC281B1F1B925800598BA0 /* fileicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BC28191F1B925800598BA0 /* fileicon@2x.png */; };
+		09BC281C1F1B925800598BA0 /* fileicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BC281A1F1B925800598BA0 /* fileicon@3x.png */; };
+		09BC28211F1BA03300598BA0 /* WeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28201F1BA03300598BA0 /* WeakProxy.m */; };
+		09BC28241F1CB01E00598BA0 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28231F1CB01E00598BA0 /* SectionHeaderView.m */; };
 		09FBCCB21F0CD2DE004AC35D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB11F0CD2DE004AC35D /* main.m */; };
 		09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */; };
 		09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB71F0CD2DE004AC35D /* ViewController.m */; };
@@ -60,6 +66,16 @@
 		09BC280D1F1A25C800598BA0 /* DownloadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadCell.xib; sourceTree = "<group>"; };
 		09BC28101F1A34F300598BA0 /* AddDownloadTaskController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDownloadTaskController.h; sourceTree = "<group>"; };
 		09BC28111F1A34F300598BA0 /* AddDownloadTaskController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDownloadTaskController.m; sourceTree = "<group>"; };
+		09BC28131F1B72A700598BA0 /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
+		09BC28141F1B72A700598BA0 /* DownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadModel.m; sourceTree = "<group>"; };
+		09BC28161F1B730800598BA0 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		09BC28171F1B730800598BA0 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		09BC28191F1B925800598BA0 /* fileicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fileicon@2x.png"; sourceTree = "<group>"; };
+		09BC281A1F1B925800598BA0 /* fileicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fileicon@3x.png"; sourceTree = "<group>"; };
+		09BC281F1F1BA03300598BA0 /* WeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeakProxy.h; sourceTree = "<group>"; };
+		09BC28201F1BA03300598BA0 /* WeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeakProxy.m; sourceTree = "<group>"; };
+		09BC28221F1CB01E00598BA0 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
+		09BC28231F1CB01E00598BA0 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
 		09FBCCAD1F0CD2DE004AC35D /* NetWorkRequestDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetWorkRequestDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FBCCB11F0CD2DE004AC35D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +131,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09BC281D1F1B925E00598BA0 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				09BC28191F1B925800598BA0 /* fileicon@2x.png */,
+				09BC281A1F1B925800598BA0 /* fileicon@3x.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
+		09BC281E1F1B9FE200598BA0 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				09BC281F1F1BA03300598BA0 /* WeakProxy.h */,
+				09BC28201F1BA03300598BA0 /* WeakProxy.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		09FBCCA41F0CD2DE004AC35D = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +174,7 @@
 		09FBCCAF1F0CD2DE004AC35D /* NetWorkRequestDemo */ = {
 			isa = PBXGroup;
 			children = (
+				09BC281E1F1B9FE200598BA0 /* Tools */,
 				09FBCCE31F0CD6C8004AC35D /* JYNetworkRequest */,
 				09FBCCED1F0E734C004AC35D /* Model */,
 				09FBCCEE1F0E7359004AC35D /* View */,
@@ -205,8 +240,12 @@
 		09FBCCED1F0E734C004AC35D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				09BC28161F1B730800598BA0 /* BaseModel.h */,
+				09BC28171F1B730800598BA0 /* BaseModel.m */,
 				09FBCCF41F0F62D1004AC35D /* DataModel.h */,
 				09FBCCF51F0F62D1004AC35D /* DataModel.m */,
+				09BC28131F1B72A700598BA0 /* DownloadModel.h */,
+				09BC28141F1B72A700598BA0 /* DownloadModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -214,12 +253,15 @@
 		09FBCCEE1F0E7359004AC35D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				09BC281D1F1B925E00598BA0 /* image */,
 				09BC280B1F1A25C800598BA0 /* DownloadCell.h */,
 				09BC280C1F1A25C800598BA0 /* DownloadCell.m */,
 				09BC280D1F1A25C800598BA0 /* DownloadCell.xib */,
 				09FBCCEF1F0F58DC004AC35D /* TableViewCell.h */,
 				09FBCCF01F0F58DC004AC35D /* TableViewCell.m */,
 				09FBCCF11F0F58DC004AC35D /* TableViewCell.xib */,
+				09BC28221F1CB01E00598BA0 /* SectionHeaderView.h */,
+				09BC28231F1CB01E00598BA0 /* SectionHeaderView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -353,9 +395,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BC281B1F1B925800598BA0 /* fileicon@2x.png in Resources */,
 				09FBCCF81F10EF35004AC35D /* bilibili.cer in Resources */,
 				09BC280F1F1A25C800598BA0 /* DownloadCell.xib in Resources */,
 				09FBCCF31F0F58DC004AC35D /* TableViewCell.xib in Resources */,
+				09BC281C1F1B925800598BA0 /* fileicon@3x.png in Resources */,
 				09FBCCBD1F0CD2DE004AC35D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,13 +473,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BC28241F1CB01E00598BA0 /* SectionHeaderView.m in Sources */,
+				09BC28211F1BA03300598BA0 /* WeakProxy.m in Sources */,
 				09FBCCE91F0D0124004AC35D /* JYRequestCache.m in Sources */,
 				09189B941F166EA4008A08E2 /* BaseViewController.m in Sources */,
 				09BC28071F1A208A00598BA0 /* BaseTabbarController.m in Sources */,
+				09BC28181F1B730800598BA0 /* BaseModel.m in Sources */,
 				09FBCCF21F0F58DC004AC35D /* TableViewCell.m in Sources */,
 				09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */,
 				09BC280E1F1A25C800598BA0 /* DownloadCell.m in Sources */,
 				09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */,
+				09BC28151F1B72A700598BA0 /* DownloadModel.m in Sources */,
 				09189B971F166EFA008A08E2 /* HomeViewController.m in Sources */,
 				09FBCCF61F0F62D1004AC35D /* DataModel.m in Sources */,
 				09FBCCB21F0CD2DE004AC35D /* main.m in Sources */,

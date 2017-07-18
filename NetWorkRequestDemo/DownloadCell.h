@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DownloadModel;
+
+static CGFloat downloadCellHeight = 60;
 
 @interface DownloadCell : UITableViewCell
+
+@property(nonatomic,strong)DownloadModel *fileDataModel;
 
 @end

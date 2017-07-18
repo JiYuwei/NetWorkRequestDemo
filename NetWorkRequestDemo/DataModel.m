@@ -10,20 +10,6 @@
 
 @implementation DataModel
 
-+(instancetype)modelWithDictionary:(NSDictionary *)dict
-{
-    return [[self alloc] initWithDictionary:dict];
-}
-
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
-    }
-    
-    return self;
-}
-
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     if ([key isEqualToString:@"goto"]) {

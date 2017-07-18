@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ADViewController.h"
 #import "BaseTabbarController.h"
 
 @interface AppDelegate ()
@@ -19,9 +20,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    BaseTabbarController *vc = [[BaseTabbarController alloc] init];
+    ADViewController *adVC = [[ADViewController alloc] init];
+    [adVC setCompleteShowADHandler:^{
+        BaseTabbarController *baseVC = [[BaseTabbarController alloc] init];
+        CATransition *animation = [CATransition animation];
+        animation.duration = 0.2f;
+        animation.timingFunction=UIViewAnimationCurveEaseInOut;
+        animation.type = kCATransitionFade;
+        [self.window.layer addAnimation:animation forKey:nil];
+        
+        self.window.rootViewController = baseVC;
+    }];
     
-    self.window.rootViewController = vc;
+    self.window.rootViewController = adVC;
     [self.window makeKeyAndVisible];
     
     return YES;

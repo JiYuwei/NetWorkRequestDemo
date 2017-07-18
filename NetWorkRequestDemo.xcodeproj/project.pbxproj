@@ -20,6 +20,7 @@
 		09BC281C1F1B925800598BA0 /* fileicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BC281A1F1B925800598BA0 /* fileicon@3x.png */; };
 		09BC28211F1BA03300598BA0 /* WeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28201F1BA03300598BA0 /* WeakProxy.m */; };
 		09BC28241F1CB01E00598BA0 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC28231F1CB01E00598BA0 /* SectionHeaderView.m */; };
+		09BC282B1F1E418A00598BA0 /* ADViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC282A1F1E418A00598BA0 /* ADViewController.m */; };
 		09FBCCB21F0CD2DE004AC35D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB11F0CD2DE004AC35D /* main.m */; };
 		09FBCCB51F0CD2DE004AC35D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */; };
 		09FBCCB81F0CD2DE004AC35D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FBCCB71F0CD2DE004AC35D /* ViewController.m */; };
@@ -76,6 +77,8 @@
 		09BC28201F1BA03300598BA0 /* WeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeakProxy.m; sourceTree = "<group>"; };
 		09BC28221F1CB01E00598BA0 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
 		09BC28231F1CB01E00598BA0 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
+		09BC28291F1E418A00598BA0 /* ADViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADViewController.h; sourceTree = "<group>"; };
+		09BC282A1F1E418A00598BA0 /* ADViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADViewController.m; sourceTree = "<group>"; };
 		09FBCCAD1F0CD2DE004AC35D /* NetWorkRequestDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetWorkRequestDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FBCCB11F0CD2DE004AC35D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				09FBCCEE1F0E7359004AC35D /* View */,
 				09FBCCB31F0CD2DE004AC35D /* AppDelegate.h */,
 				09FBCCB41F0CD2DE004AC35D /* AppDelegate.m */,
+				09BC28291F1E418A00598BA0 /* ADViewController.h */,
+				09BC282A1F1E418A00598BA0 /* ADViewController.m */,
 				09BC28051F1A208A00598BA0 /* BaseTabbarController.h */,
 				09BC28061F1A208A00598BA0 /* BaseTabbarController.m */,
 				09189B921F166EA4008A08E2 /* BaseViewController.h */,
@@ -474,6 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09BC28241F1CB01E00598BA0 /* SectionHeaderView.m in Sources */,
+				09BC282B1F1E418A00598BA0 /* ADViewController.m in Sources */,
 				09BC28211F1BA03300598BA0 /* WeakProxy.m in Sources */,
 				09FBCCE91F0D0124004AC35D /* JYRequestCache.m in Sources */,
 				09189B941F166EA4008A08E2 /* BaseViewController.m in Sources */,
